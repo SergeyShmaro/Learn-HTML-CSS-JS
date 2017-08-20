@@ -1,0 +1,201 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	background-color: #D1D1D1;
+	min-width: 1045px;
+}
+
+.wrapper {
+	height: 100%;
+	width: 100%;
+	min-width: 850px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.content {
+	height: 100%;
+	width: 100%;
+	max-width: 850px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.saveValueTable {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	max-width: 195px;
+	float: right;
+	margin: 0 auto;
+	display: none;
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+  	justify-content: center;
+ }
+
+.button {
+	outline: 0;
+	margin: 5px;
+	padding: 12px;
+	border: 0;
+	font-size: 1em;
+	font-weight: bold;
+	color: white;
+}
+
+.start, .saveval {
+	background-color: #4ed44e;
+}
+
+.incsec, .decsec {
+	background-color: #5151DB;
+}
+
+.stop {
+	background-color: #DA5151;
+}
+
+.resettimer, .countdown {
+	background-color: #B379A3;
+}
+
+.setTimer {
+	background-color: #6964FF;
+}
+
+.okBut {
+	outline: 0;
+	border: 0;
+	background-color: #4ed44e;
+	font-size: 1em;
+	color: white;
+	border-radius: 7px;
+	padding: 1px 7px;
+	
+}
+
+.hideBut {
+	outline: 0;
+	margin: 0px;
+	padding: 12px;
+	border: 0;
+	font-size: 1em;
+	font-weight: bold;
+	color: white;
+	width: 195px;
+	background-color: #DA5151;
+}
+
+.timerWrap {
+	display: flex;
+}
+
+.timer {
+	text-align: center;
+	color: white;
+	font-size: 12em;
+	font-weight: bold;
+	font-family: arial;
+	text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 
+				 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 
+				 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 
+				 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+
+.changeIcon {
+	margin-top: 50px;
+	margin-left: 5px; 
+	color: white;
+	text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 
+				 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 
+				 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 
+				 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+
+
+.ulOverflow {
+	position: absolute;
+	bottom: 5px;
+	left: 0px;
+	right: 0px;
+	top: 55px;
+	overflow: auto;
+}
+
+.saveTable {
+	list-style-type: none;
+	color: #5C5C5C;
+	font-size: 1.2em;
+	font-weight: bold;
+	font-family: arial;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #ecedee;
+}
+
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#da5151;
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color: #4ed44e;
+}
+
+::-webkit-scrollbar{
+	height: 5px;
+	width: 5px;
+}
+
+.popup {
+	position: absolute;
+	min-width: 270px;
+	top: 68%;
+    background: #6964FF;
+    color: #000;
+    font-size: 2em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    color: white;
+}
+.popup:after {
+    content:'';
+    position: absolute;
+    left: 50%;
+    top: -35px;
+    margin-left: -20px;
+    border: 20px solid transparent;
+    border-bottom: 15px solid #6964FF;
+}
+
+.fa-check {
+	color: #4ed44e;
+}
+
+.fa-times {
+	color: #DA5151;
+}
+
+.setTimerInput {
+	width: 37px;
+	border: 0px;
+	font-size: 1em;
+	border-radius: 7px;
+	text-align: right;
+	background-color: #8F8BFF;
+	outline: 0;
+	color: white;
+}

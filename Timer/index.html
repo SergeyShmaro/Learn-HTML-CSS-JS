@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Timer</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+</head>
+<body>
+	<div class="wrapper">
+
+		<div class="content">
+			<div class="timerWrap">
+				<div class="timer">00:00</div>
+				<i class="fa fa-stop fa-2x changeIcon"></i>
+			</div>
+			<div class="buttons">
+				<input type="button" value="Start" class="button start">
+				<input type="button" value="Reset timer" class="button resettimer">
+				<input type="button" value="+10 seconds" class="button incsec">
+				<input type="button" value="Stop" class="button stop">
+				<input type="button" value="-10 seconds" class="button decsec">
+				<input type="button" value="Countdown" class="button countdown">
+				<input type="button" value="Save current value" class="button saveval">
+				<input type="button" value="Set timer" class="button setTimer">
+				<div class="popup">
+					<input type="text" class="setTimerInput" id="firstIn" maxlength="2"> :
+					<input type="text" class="setTimerInput" id="secondIn" maxlength="2"> :
+					<input type="text" class="setTimerInput" id="thirdIn" maxlength="2">
+					<i class="fa fa-check validateIcon"></i>
+					<input type="button" value="OK" class="okBut">
+				</div>
+			</div>
+		</div>
+
+		<div class="saveValueTable">
+			<button class="hideBut">Hide and reset values</button>
+			<div class="ulOverflow">
+				<ul class="saveTable">
+		
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
