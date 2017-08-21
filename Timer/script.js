@@ -61,7 +61,12 @@ const addTime = x => {
 		hours++;
 		min -= 60;
 	}
-	if (hours == 24 || (currentIconClass == "fa-arrow-down" && sec == 0)) {
+	if (hours == 24 || (hours == 0 && min == 0 && 
+						currentIconClass == "fa-arrow-down" && 
+						sec == 0)) {
+
+		sec = 0;
+		min = 0;
 		stop();
 	}
 	renderTime();
@@ -143,24 +148,54 @@ const showPopup = () => {
 		firstInput.value = hours;
 		secondInput.value = (min > 9) ? min : ('0' + min);
 		thirdInput.value = (sec > 9) ? sec : ('0' + sec);
+		firstInput.focus();
 	} else {
 		setTimerBut.value = 'Set timer';
 		popupBox.style.display = "none";
 	}
 }
 
-const onInputForSetTimer = () => {
-	if (secondInput.value > 59 || thirdInput.value > 59 || 
-		firstInput.value > 23 ||
-	    secondInput.value.search(/\D/) != -1 ||
-	    thirdInput.value.search(/\D/) != -1 ||
-	    firstInput.value.search(/\D/) != -1) {
+const firstInputOnInput = () => {
+	validateInputs();
+	if (firstInput.value.length == 2) {
+		secondInput.focus();
+	}
+}
 
+const secondInputOnInput = () => {
+	validateInputs();
+	if (secondInput.value.length == 2) {
+		thirdInput.focus();
+	}
+}
+
+const thirdInputOnInput = () => {
+	validateInputs();
+	if (thirdInput.value.length == 2) {
+		okBut.focus();
+	}
+}
+
+const validateInputs = () => {
+	if (!isSetTimerValid()) {
 		validateIcon.classList.remove("fa-check");
 		validateIcon.classList.add("fa-times");
 	} else {
 		validateIcon.classList.remove("fa-times");
 		validateIcon.classList.add("fa-check");
+	}
+}
+
+const isSetTimerValid = () => {
+	if (secondInput.value > 59 || thirdInput.value > 59 || 
+		firstInput.value > 23 ||
+	    secondInput.value.search(/\D/) != -1 ||
+	    thirdInput.value.search(/\D/) != -1 ||
+	    firstInput.value.search(/\D/) != -1) {
+		
+		return false;
+	} else {
+		return true;
 	}
 }
 
@@ -175,6 +210,10 @@ const submitPopup = () => {
 	}
 }
 
+const focusOnSetTimerInputs = () => {
+	event.target.select();
+}
+
 startBut.addEventListener('click', start);
 incsecBut.addEventListener('click', incsec);
 decsecBut.addEventListener('click', decsec);
@@ -186,6 +225,10 @@ hideBut.addEventListener('click', hide);
 setTimerBut.addEventListener('click', showPopup);
 okBut.addEventListener('click', submitPopup);
 
-firstInput.oninput = onInputForSetTimer;
-secondInput.oninput = onInputForSetTimer;
-thirdInput.oninput = onInputForSetTimer;
+firstInput.addEventListener('input', firstInputOnInput);
+secondInput.addEventListener('input', secondInputOnInput);
+thirdInput.addEventListener('input', thirdInputOnInput);
+
+firstInput.addEventListener('focus', focusOnSetTimerInputs);
+secondInput.addEventListener('focus', focusOnSetTimerInputs);
+thirdInput.addEventListener('focus', focusOnSetTimerInputs);
