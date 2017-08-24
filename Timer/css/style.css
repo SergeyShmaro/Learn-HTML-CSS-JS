@@ -8,6 +8,7 @@ html, body {
 }
 
 .wrapper {
+	display: flex;
 	height: 100%;
 	width: 100%;
 	min-width: 850px;
@@ -33,7 +34,7 @@ html, body {
 	max-width: 195px;
 	float: right;
 	margin: 0 auto;
-	display: none;
+	display: block;
 }
 
 .buttons {
@@ -73,6 +74,31 @@ html, body {
 	background-color: #6964FF;
 }
 
+.start:hover, .saveval:hover, .okBut:hover, .okBut:focus {
+	background-color: #42A842;
+	cursor: pointer;
+}
+
+.incsec:hover, .decsec:hover {
+	background-color: #4040AB;
+	cursor: pointer;
+}
+
+.resettimer:hover, .countdown:hover {
+	background-color: #865C79;
+	cursor: pointer;
+}
+
+.stop:hover {
+	background-color: #B24141;
+	cursor: pointer;
+}
+
+.setTimer:hover {
+	background-color: #5551CD;
+	cursor: pointer;
+}
+
 .okBut {
 	outline: 0;
 	border: 0;
@@ -81,7 +107,6 @@ html, body {
 	color: white;
 	border-radius: 7px;
 	padding: 1px 7px;
-	
 }
 
 .hideBut {
@@ -94,6 +119,11 @@ html, body {
 	color: white;
 	width: 195px;
 	background-color: #DA5151;
+}
+
+.hideBut:hover {
+	background-color: #B24141;
+	cursor: pointer;
 }
 
 .timerWrap {
@@ -138,6 +168,8 @@ html, body {
 	font-size: 1.2em;
 	font-weight: bold;
 	font-family: arial;
+	padding: 0;
+	margin: 0;
 }
 
 ::-webkit-scrollbar-track {
@@ -161,23 +193,27 @@ html, body {
 
 .popup {
 	position: absolute;
-	min-width: 270px;
-	top: 68%;
+	max-height: 60px;
+	top: 69%;
     background: #6964FF;
     color: #000;
     font-size: 2em;
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 10px;
-    display: none;
+    display: flex;
     color: white;
+    align-items: center;
+    justify-content: center;
 }
 .popup:after {
     content:'';
     position: absolute;
     left: 50%;
-    top: -35px;
+    top: -29px;
     margin-left: -20px;
-    border: 20px solid transparent;
+    border: 15px solid transparent;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
     border-bottom: 15px solid #6964FF;
 }
 
@@ -198,4 +234,42 @@ html, body {
 	background-color: #8F8BFF;
 	outline: 0;
 	color: white;
+}
+
+.switcher {
+	margin-top: 15px;
+	margin-left: 5px;
+	background-color: #A9A9A9;
+	border-radius: 10px;
+	font-size: 1em;
+	cursor: pointer;
+	box-shadow:  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 
+				 0 10px 10px rgba(0,0,0,.05), 0 20px 20px rgba(0,0,0,.15);
+}
+
+.topSwitch {
+	padding: 9px;
+	text-align: center;
+	border-radius: 10px 10px 0px 0px;
+	border-bottom-color: #757575;
+}
+
+.botSwitch {
+	padding: 10px;
+	text-align: center;
+	border-radius: 0px 0px 10px 10px;
+}
+
+.inactiveSwitch {
+	background-color: white;
+	box-shadow:  0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 
+				 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1);
+}
+
+.hide {
+	display: none;
+}
+
+.increaseWidth {
+	width: 74px;
 }

@@ -13,7 +13,13 @@
 		<div class="content">
 			<div class="timerWrap">
 				<div class="timer">00:00</div>
-				<i class="fa fa-stop fa-2x changeIcon"></i>
+				<div class="intWrap">
+					<i class="fa fa-stop fa-2x changeIcon"></i>
+					<div class="switcher">
+						<div class="topSwitch">HOUR</div>
+						<div class="botSwitch inactiveSwitch">MIN</div>
+					</div>
+				</div>
 			</div>
 			<div class="buttons">
 				<input type="button" value="Start" class="button start">
@@ -24,9 +30,11 @@
 				<input type="button" value="Countdown" class="button countdown">
 				<input type="button" value="Save current value" class="button saveval">
 				<input type="button" value="Set timer" class="button setTimer">
-				<div class="popup">
-					<input type="text" class="setTimerInput" id="firstIn" maxlength="2"> :
-					<input type="text" class="setTimerInput" id="secondIn" maxlength="2"> :
+				<div class="popup hide">
+					<input type="text" class="setTimerInput" id="firstIn" maxlength="2"> 
+					<p class="colon">:</p>
+					<input type="text" class="setTimerInput" id="secondIn" maxlength="2"> 
+					<p>:</p>
 					<input type="text" class="setTimerInput" id="thirdIn" maxlength="2">
 					<i class="fa fa-check validateIcon"></i>
 					<input type="button" value="OK" class="okBut">
@@ -34,7 +42,7 @@
 			</div>
 		</div>
 
-		<div class="saveValueTable">
+		<div class="saveValueTable hide">
 			<button class="hideBut">Hide and reset values</button>
 			<div class="ulOverflow">
 				<ul class="saveTable">
@@ -45,5 +53,6 @@
 	</div>
 
 	<script src="script.js"></script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

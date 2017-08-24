@@ -9,6 +9,10 @@ const secondInput = document.getElementById('secondIn');
 const thirdInput = document.getElementById('thirdIn');
 const validateIcon = document.querySelector('.validateIcon');
 
+const topSwitchBox = document.querySelector('.topSwitch');
+const botSwitchBox = document.querySelector('.botSwitch');
+const colon = document.querySelector('.colon');
+
 const startBut = document.querySelector('.start');
 const stopBut = document.querySelector('.stop');
 const incsecBut = document.querySelector('.incsec');
@@ -25,6 +29,7 @@ let timerId, reverseTimerId;
 let isTable = false;
 let countSaveVal = 0;
 let currentIconClass = "fa-stop";
+let hourEnabled = true;
 
 const start = () => {
 	if (reverseTimerId) {
@@ -57,16 +62,21 @@ const addTime = x => {
 		min++;
 		sec -= 60;
 	}
-	if (min >= 60) {
+	if (min >= 60 && hourEnabled) {
 		hours++;
 		min -= 60;
 	}
-	if (hours == 24 || (hours == 0 && min == 0 && 
-						currentIconClass == "fa-arrow-down" && 
-						sec == 0)) {
-
-		sec = 0;
+	if (hours == 0 && min == 0 && sec == 0 &&
+		currentIconClass == "fa-arrow-down") {
+		stop();
+	}
+	if (hours == 24) {
 		min = 0;
+		sec = 0;
+		stop();
+	}
+	if (min == 1440) {
+		sec = 0;
 		stop();
 	}
 	renderTime();
@@ -122,8 +132,7 @@ const countdown = () => {
 
 const saveval = () => {
 	if(!isTable) {
-		contentBox.style.float = 'left';
-		saveBox.style.display = 'block';
+		saveBox.classList.remove("hide");
 	}
 	countSaveVal++;
 	const li = document.createElement('li');
@@ -132,8 +141,7 @@ const saveval = () => {
 }
 
 const hide = () => {
-	saveBox.style.display = 'none';
-	contentBox.style.float = 'none';
+	saveBox.classList.add("hide");
 
 	while(table.firstChild) {
 		table.removeChild(table.firstChild);
@@ -142,16 +150,20 @@ const hide = () => {
 }
 
 const showPopup = () => {
-	if (popupBox.style.display == "none" || popupBox.style.display == '') {
+	if (popupBox.classList.contains('hide')) {
 		setTimerBut.value = 'Hide "set timer" window';
-		popupBox.style.display = "block";
+		popupBox.classList.remove('hide');
 		firstInput.value = hours;
 		secondInput.value = (min > 9) ? min : ('0' + min);
 		thirdInput.value = (sec > 9) ? sec : ('0' + sec);
-		firstInput.focus();
+		if (hourEnabled) {
+			firstInput.focus();
+		} else {
+			secondInput.focus();
+		}
 	} else {
 		setTimerBut.value = 'Set timer';
-		popupBox.style.display = "none";
+		popupBox.classList.add('hide');
 	}
 }
 
@@ -164,7 +176,8 @@ const firstInputOnInput = () => {
 
 const secondInputOnInput = () => {
 	validateInputs();
-	if (secondInput.value.length == 2) {
+	if ((secondInput.value.length == 2 && hourEnabled) ||
+		(secondInput.value.length == 4 && !hourEnabled)) {
 		thirdInput.focus();
 	}
 }
@@ -187,16 +200,27 @@ const validateInputs = () => {
 }
 
 const isSetTimerValid = () => {
-	if (secondInput.value > 59 || thirdInput.value > 59 || 
-		firstInput.value > 23 ||
-	    secondInput.value.search(/\D/) != -1 ||
-	    thirdInput.value.search(/\D/) != -1 ||
-	    firstInput.value.search(/\D/) != -1) {
-		
-		return false;
-	} else {
-		return true;
+	const first = firstInput.value;
+	const second = secondInput.value;
+	const third = thirdInput.value;
+
+	if (hourEnabled && ((first > 23 || second > 59 || third > 59) &&
+						(first == 24 && (second != 0 || third != 0)))) {
+		return false;		
 	}
+
+	if (!hourEnabled && ((second > 1339 || third > 59) &&
+						(second == 1440 && third != 0))) {
+		return false;
+	}
+
+	if (first.search(/\D/) != -1 ||
+		second.search(/\D/) != -1 ||
+		third.search(/\D/) != -1) {
+		return false;
+	}
+
+	return true;
 }
 
 const submitPopup = () => {
@@ -205,13 +229,58 @@ const submitPopup = () => {
 		min = +secondInput.value;
 		sec = +thirdInput.value;
 		setTimerBut.value = 'Set timer';
-		popupBox.style.display = "none";
+		popupBox.classList.add('hide');
 		renderTime();
 	}
 }
 
 const focusOnSetTimerInputs = () => {
 	event.target.select();
+}
+
+const switchRender = () => {
+
+	if (hourEnabled) {
+		botSwitchBox.classList.remove('inactiveSwitch');
+		topSwitchBox.classList.add('inactiveSwitch');
+		hourEnabled = false;
+		firstInput.classList.add('hide');
+		colon.classList.add('hide');
+		secondInput.setAttribute('maxlength', '4');
+		secondInput.classList.add('increaseWidth');
+	} else {
+		topSwitchBox.classList.remove('inactiveSwitch');
+		botSwitchBox.classList.add('inactiveSwitch');
+		hourEnabled = true;
+		firstInput.classList.remove('hide');
+		colon.classList.remove('hide');
+		secondInput.setAttribute('maxlength', '2');
+		secondInput.classList.remove('increaseWidth');
+	}
+
+	if (!popupBox.classList.contains('hide')) {
+		firstInput.value = hours;
+		secondInput.value = (min > 9) ? min : ('0' + min);
+		thirdInput.value = (sec > 9) ? sec : ('0' + sec);
+	}
+}
+
+const hourSwitch = () => {
+	if (!hourEnabled) {
+		hours = Math.floor(min / 60);
+		min -= hours * 60;
+		renderTime();
+		switchRender();
+	}
+}
+
+const minSwitch = () => {
+	if (hourEnabled) {
+		min += hours * 60;
+		hours = 0;
+		renderTime();
+		switchRender();
+	}
 }
 
 startBut.addEventListener('click', start);
@@ -232,3 +301,6 @@ thirdInput.addEventListener('input', thirdInputOnInput);
 firstInput.addEventListener('focus', focusOnSetTimerInputs);
 secondInput.addEventListener('focus', focusOnSetTimerInputs);
 thirdInput.addEventListener('focus', focusOnSetTimerInputs);
+
+topSwitchBox.addEventListener('click', hourSwitch);
+botSwitchBox.addEventListener('click', minSwitch);
