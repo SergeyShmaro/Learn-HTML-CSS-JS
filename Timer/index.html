@@ -16,7 +16,7 @@
 				<div class="intWrap">
 					<i class="fa fa-stop fa-2x changeIcon"></i>
 					<div class="switcher">
-						<div class="topSwitch">HOUR</div>
+						<div class="topSwitch activeSwitch">HOUR</div>
 						<div class="botSwitch inactiveSwitch">MIN</div>
 					</div>
 				</div>
@@ -32,12 +32,13 @@
 				<input type="button" value="Set timer" class="button setTimer">
 				<div class="popup hide">
 					<input type="text" class="setTimerInput" id="firstIn" maxlength="2"> 
-					<p class="colon">:</p>
+					<span class="colon textsize">:</span>
 					<input type="text" class="setTimerInput" id="secondIn" maxlength="2"> 
-					<p>:</p>
+					<span class="textsize">:</span>
 					<input type="text" class="setTimerInput" id="thirdIn" maxlength="2">
-					<i class="fa fa-check validateIcon"></i>
-					<input type="button" value="OK" class="okBut">
+					<span id="iconsize"><i class="fa fa-check validateIcon"></i></span>
+					<input type="button" value="OK" class="okBut textsize">
+					<span class="closePopup"><i class="fa fa-times"></i></span> 	
 				</div>
 			</div>
 		</div>

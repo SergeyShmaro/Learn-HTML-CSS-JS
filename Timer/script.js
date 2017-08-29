@@ -4,6 +4,7 @@ const saveBox = document.querySelector('.saveValueTable');
 const contentBox = document.querySelector('.content');
 const popupBox = document.querySelector('.popup');
 const icon = document.querySelector('.changeIcon');
+
 const firstInput = document.getElementById('firstIn');
 const secondInput = document.getElementById('secondIn');
 const thirdInput = document.getElementById('thirdIn');
@@ -23,6 +24,7 @@ const savevalBut = document.querySelector('.saveval');
 const hideBut = document.querySelector('.hideBut');
 const setTimerBut = document.querySelector('.setTimer')
 const okBut = document.querySelector('.okBut');
+const closePopupBut = document.querySelector('.closePopup');
 
 let sec = 0, min = 0, hours = 0;
 let timerId, reverseTimerId;
@@ -151,18 +153,17 @@ const hide = () => {
 
 const showPopup = () => {
 	if (popupBox.classList.contains('hide')) {
-		setTimerBut.value = 'Hide "set timer" window';
 		popupBox.classList.remove('hide');
 		firstInput.value = hours;
 		secondInput.value = (min > 9) ? min : ('0' + min);
 		thirdInput.value = (sec > 9) ? sec : ('0' + sec);
+		validateInputs();
 		if (hourEnabled) {
 			firstInput.focus();
 		} else {
 			secondInput.focus();
 		}
 	} else {
-		setTimerBut.value = 'Set timer';
 		popupBox.classList.add('hide');
 	}
 }
@@ -204,12 +205,12 @@ const isSetTimerValid = () => {
 	const second = secondInput.value;
 	const third = thirdInput.value;
 
-	if (hourEnabled && ((first > 23 || second > 59 || third > 59) &&
+	if (hourEnabled && ((first > 24 || second > 59 || third > 59) ||
 						(first == 24 && (second != 0 || third != 0)))) {
 		return false;		
 	}
 
-	if (!hourEnabled && ((second > 1339 || third > 59) &&
+	if (!hourEnabled && ((second > 1440 || third > 59) ||
 						(second == 1440 && third != 0))) {
 		return false;
 	}
@@ -228,10 +229,13 @@ const submitPopup = () => {
 		hours = +firstInput.value;
 		min = +secondInput.value;
 		sec = +thirdInput.value;
-		setTimerBut.value = 'Set timer';
 		popupBox.classList.add('hide');
 		renderTime();
 	}
+}
+
+const closePopup = () => {
+	popupBox.classList.add('hide');
 }
 
 const focusOnSetTimerInputs = () => {
@@ -241,7 +245,9 @@ const focusOnSetTimerInputs = () => {
 const switchRender = () => {
 
 	if (hourEnabled) {
+		topSwitchBox.classList.remove('activeSwitch');
 		botSwitchBox.classList.remove('inactiveSwitch');
+		botSwitchBox.classList.add('activeSwitch');
 		topSwitchBox.classList.add('inactiveSwitch');
 		hourEnabled = false;
 		firstInput.classList.add('hide');
@@ -250,6 +256,8 @@ const switchRender = () => {
 		secondInput.classList.add('increaseWidth');
 	} else {
 		topSwitchBox.classList.remove('inactiveSwitch');
+		botSwitchBox.classList.remove('activeSwitch');
+		topSwitchBox.classList.add('activeSwitch');
 		botSwitchBox.classList.add('inactiveSwitch');
 		hourEnabled = true;
 		firstInput.classList.remove('hide');
@@ -262,6 +270,7 @@ const switchRender = () => {
 		firstInput.value = hours;
 		secondInput.value = (min > 9) ? min : ('0' + min);
 		thirdInput.value = (sec > 9) ? sec : ('0' + sec);
+		isSetTimerValid();
 	}
 }
 
@@ -293,6 +302,7 @@ savevalBut.addEventListener('click', saveval);
 hideBut.addEventListener('click', hide);
 setTimerBut.addEventListener('click', showPopup);
 okBut.addEventListener('click', submitPopup);
+closePopupBut.addEventListener('click', closePopup)
 
 firstInput.addEventListener('input', firstInputOnInput);
 secondInput.addEventListener('input', secondInputOnInput);
